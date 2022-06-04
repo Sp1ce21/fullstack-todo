@@ -37,6 +37,7 @@ const ToDoBlock: FC = () => {
         if (a.done < b.done) {
           return -1;
         }
+        return 0;
       })
     );
   }, [tasks]);

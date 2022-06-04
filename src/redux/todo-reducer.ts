@@ -1,4 +1,4 @@
-import { Dispatch } from "redux";
+import { AnyAction, Dispatch } from "redux";
 import {
   addTaskRequest,
   completeTaskRequest,
@@ -61,7 +61,7 @@ export const setTasks = (tasks: ITasks[]): TasksType => ({
 });
 
 export const getTasks = (): any => async (dispatch: Dispatch<TasksType>) => {
-  const response: any = await getTasksRequest({});
+  const response: ITasks[] = await getTasksRequest({});
   dispatch(setTasks(response));
 };
 
@@ -78,13 +78,13 @@ export const setAddedTask = (addedTask: ITasks): addedTaskType => ({
 export const addTask =
   (title: string): any =>
   async (dispatch: Dispatch<addedTaskType>) => {
-    const response: any = await addTaskRequest({ title });
+    const response: { task: ITasks } = await addTaskRequest({ title });
     dispatch(setAddedTask(response.task));
   };
 
 export const completeTask =
   (id: number): any =>
-  async (dispatch: any) => {
+  async (dispatch: Dispatch<AnyAction>) => {
     await completeTaskRequest({ id });
     dispatch(getTasks());
   };

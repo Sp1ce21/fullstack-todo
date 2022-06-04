@@ -1,7 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { TableHints } from "sequelize/types";
 import { ITasks } from "../../request/interfaces";
-import { dateFormatter } from "../../utils/dateFormatter";
 import CustomCheckbox from "../input/CustomCheckbox";
 import { Column, DateStyle, DeleteIcon, Row, Task } from "./style";
 
@@ -15,7 +13,7 @@ const ToDoItem: FC<IToDoItem> = ({ task, complete, deleteTask }) => {
   const [date, setDate] = useState("");
   useEffect(() => {
     if (task.createdAt) {
-      const taskDate: any = [...task.createdAt.toString()];
+      const taskDate: string[] = [...task.createdAt.toString()];
       const taskDateString = taskDate.slice(0, 10).join("");
       const taskDateFormatted = taskDateString.split("-").reverse().join(":");
       setDate(taskDateFormatted);

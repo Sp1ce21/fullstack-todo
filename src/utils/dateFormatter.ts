@@ -1,5 +1,5 @@
 export const dateFormatter = (date: Date) => {
-  const options: any = {
+  const options: { [key: string]: string } = {
     day: "2-digit",
     month: "long",
     year: "numeric",
