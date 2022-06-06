@@ -1,11 +1,11 @@
 const Seq = require("sequelize");
 
-const DB_NAME = "node-todo";
-const USER_NAME = "root";
-const PASSWORD = "38Sk6481";
+const DB_NAME = "heroku_2087d4fc19849bc";
+const USER_NAME = "b8b2d681755a97";
+const PASSWORD = "b68e811f";
 
 const seq = new Seq(DB_NAME, USER_NAME, PASSWORD, {
-  host: "localhost",
+  host: "us-cdbr-east-05.cleardb.net",
   dialect: "mysql",
 });
 
