@@ -3,7 +3,7 @@ import { IGraphRequest } from "./interfaces";
 
 export const graphRequest = async ({ query, name }: IGraphRequest) => {
   const response = await axios.post(
-    `https://yourapp.herokuapp.com/api/graphql`,
+    `${process.env.REACT_APP_API_URL}/graphql`,
     { query },
     {
       headers: {
