@@ -19,7 +19,6 @@ const ToDoBlock: FC = () => {
   const dispatch = useDispatch();
 
   const tasks: any = useSelector(({ todo }: RootState) => todo.tasks);
-
   useEffect(() => {
     setDate(getDate().toString());
   }, []);

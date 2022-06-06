@@ -1,11 +1,12 @@
-import { AnyAction, Dispatch } from "redux";
+import { Dispatch } from "redux";
 import {
-  addTaskRequest,
-  completeTaskRequest,
-  deleteTaskRequest,
-  getTasksRequest,
-} from "../request/api";
+  completeTaskQuery,
+  createTaskQuery,
+  deleteTaskQuery,
+  getTasksQuery,
+} from "../request/queries";
 import { ITasks } from "../request/interfaces";
+import { graphRequest } from "../request/request";
 
 const SET_TASKS = "SET_TASKS";
 const SET_ADDED_TASK = "SET_ADDED_TASK";
@@ -61,8 +62,8 @@ export const setTasks = (tasks: ITasks[]): TasksType => ({
 });
 
 export const getTasks = (): any => async (dispatch: Dispatch<TasksType>) => {
-  const response: ITasks[] = await getTasksRequest({});
-  dispatch(setTasks(response));
+  const tasks = await graphRequest(getTasksQuery());
+  dispatch(setTasks(tasks));
 };
 
 type addedTaskType = {
@@ -78,15 +79,15 @@ export const setAddedTask = (addedTask: ITasks): addedTaskType => ({
 export const addTask =
   (title: string): any =>
   async (dispatch: Dispatch<addedTaskType>) => {
-    const response: { task: ITasks } = await addTaskRequest({ title });
-    dispatch(setAddedTask(response.task));
+    const response = await graphRequest(createTaskQuery(title));
+    dispatch(setAddedTask(response));
   };
 
 export const completeTask =
   (id: number): any =>
-  async (dispatch: Dispatch<AnyAction>) => {
-    await completeTaskRequest({ id });
-    dispatch(getTasks());
+  async (dispatch: Dispatch<any>) => {
+    const success = await graphRequest(completeTaskQuery(id));
+    if (success) dispatch(getTasks());
   };
 
 type deleteTaskType = {
@@ -102,8 +103,8 @@ export const deleteTaskAction = (id: number): deleteTaskType => ({
 export const deleteTask =
   (id: number): any =>
   async (dispatch: Dispatch<deleteTaskType>) => {
-    await deleteTaskRequest({ id });
-    dispatch(deleteTaskAction(id));
+    const success = await graphRequest(deleteTaskQuery(id));
+    if (success) dispatch(deleteTaskAction(id));
   };
 
 export default settingsReducer;

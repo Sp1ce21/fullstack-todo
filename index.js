@@ -1,10 +1,12 @@
 const express = require("express");
-const path = require("path");
 const cors = require("cors");
-const bodyParser = require("body-parser");
-
+const path = require("path");
+const { graphqlHTTP } = require("express-graphql");
+const { bodyParserGraphQL } = require("body-parser-graphql");
+const bodyParser    = require('body-parser'); 
+const schema = require("./graphQl/schema.ts");
+const resolver = require("./graphQl/resolver.ts");
 const sequelize = require("./utils/database.ts");
-const todoRoute = require("./routes/todo.ts");
 
 const PORT = process.env.PORT || 3000;
 
@@ -13,11 +15,15 @@ const app = express();
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());
-
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
-app.use("/todo", todoRoute);
+app.use(bodyParserGraphQL());
+app.use(
+  graphqlHTTP({
+    schema,
+    rootValue: resolver,
+    graphiql: true,
+  })
+);
 
 app.use((req, res, next) => {
   res.sendFile("/index.html");

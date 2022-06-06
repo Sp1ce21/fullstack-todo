@@ -6,27 +6,32 @@ export interface ITasks {
   updatedAt: Date;
 }
 
-export interface getTasksPropsPut {}
-
-export type getTasksPropsOut = ITasks[];
-
-export type addTaskPropsPut = createTaskPropsPut;
-
-export type addTaskPropsOut = createTasksPropsOut;
-
-export type completeTaskPropsPut = createTaskPropsPut;
-
-export type completeTaskPropsOut = createTasksPropsOut[];
-
-export type deleteTaskPropsPut = createTaskPropsPut;
-
-export type deleteTaskPropsOut = createTasksPropsOut[];
-
-export interface createTasksPropsOut {
-  task: ITasks;
+export interface IGraphRequest {
+  query: string;
+  name: string;
 }
 
-export interface createTaskPropsPut {
-  title?: string;
-  id?: number;
-}
+// export interface getTasksPropsPut {}
+
+// export type getTasksPropsOut = ITasks[];
+
+// export type addTaskPropsPut = createTaskPropsPut;
+
+// export type addTaskPropsOut = createTasksPropsOut;
+
+// export type completeTaskPropsPut = createTaskPropsPut;
+
+// export type completeTaskPropsOut = createTasksPropsOut[];
+
+// export type deleteTaskPropsPut = createTaskPropsPut;
+
+// export type deleteTaskPropsOut = createTasksPropsOut[];
+
+// export interface createTasksPropsOut {
+//   task: ITasks;
+// }
+
+// export interface createTaskPropsPut {
+//   title?: string;
+//   id?: number;
+// }
